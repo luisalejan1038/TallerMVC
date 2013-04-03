@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Clients";
+}
+
+<h2>Clients</h2>
+
+<link rel="stylesheet" href="/Content/bootstrap.css">
+<div class="container">
+		<div class="row">
+			<div class="span3">
+				<h4>Lista de Clientes<i class="icon-folder-close"></i></h4>
+				<div class="panellista">	
+					<!-- Lista de clientes con número de clientes y correo -->
+				</div>		
+			</div>
+			
+			<div class="span4">
+				<h4><em>Detalle de Cliente</em><i class="icon-comment"></i></h4>
+				<div class="paneldetalles">
+							<div class="id"></div>
+							<div class="name"></div>
+							<div class="email"></div>
+							<div class="tel"></div>
+							<div class="descripcion"></div>
+				</div>
+			</div>
+			
+			<div class="span5">
+				<h4>Creación de Clientes<i class="icon-hand-right"></i></h4>
+				<div class="panelcreacion">
+				<!-- Captura de datos para crear nuevo cliente -->
+					<form>						
+						<div>
+							<label>Id:</label> 
+							<input type="text" name="id" id="texto1"/>
+						</div>
+						<div>
+							<label>Nombre:</label> 
+							<input type="text" name="name" id="texto2"/>
+						</div>
+						<div>
+							<label>Email:</label> 
+							<input type="text" name="email" id="texto3"/>
+						</div>
+						<div>
+							<label>Telefono:</label> 
+							<input type="text" name="tel" id="texto4"/>
+						</div>
+						<div>
+							<label>Descripcion:</label> 
+							<input type="text" name="descripcion" id="texto5"/>
+						</div>
+						<div>
+							<button class="btn" type="Button" id="boton1" name="agregar"><i class="icon-search"></i>Agregar
+							</button>
+						</div>
+					</form>
+				</div>				
+			</div>
+
+				<script src="/Content/jquery-1.9.1.js"></script>
+				<script src="/Content/app.js"></script>
+										
+		</div>
+</div>
