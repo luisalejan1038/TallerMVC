@@ -5,11 +5,12 @@
 <h2>Clients</h2>
 
 <link rel="stylesheet" href="/Content/bootstrap.css">
+<link rel="stylesheet" href="/Content/estilos.css">
 <div class="container">
 		<div class="row">
 			<div class="span3">
 				<h4>Lista de Clientes<i class="icon-folder-close"></i></h4>
-				<div class="panellista">	
+				<div class="panellista">
 					<!-- Lista de clientes con número de clientes y correo -->
 				</div>		
 			</div>
@@ -17,11 +18,31 @@
 			<div class="span4">
 				<h4><em>Detalle de Cliente</em><i class="icon-comment"></i></h4>
 				<div class="paneldetalles">
-							<div class="id"></div>
-							<div class="name"></div>
-							<div class="email"></div>
-							<div class="tel"></div>
-							<div class="descripcion"></div>
+							<div class="id">
+                                <label>Id:</label> 
+                                <input type="text" name="id" id="texto6" disabled>
+                                <i class="icon-remove"></i>
+							</div>
+							<div class="name">
+                                <label>Nombre:</label> 
+							    <input type="text" name="named" id="texto7"/>
+							</div>
+							<div class="email">
+                                <label>Email:</label> 
+							    <input type="text" name="email" id="texto8"/>
+							</div>
+							<div class="tel">
+                                <label>Telefono:</label> 
+							    <input type="text" name="tel" id="texto9"/>
+							</div>
+							<div class="descripcion">
+                                <label>Descripcion:</label> 
+							    <input type="text" name="descripcion" id="texto10"/>
+							</div>
+                            <div>
+							    <button class="btn btn-info" type="Button" id="btnActualizarCliente" name="agregar"><i class="icon-search"></i>Actualizar
+							    </button>
+						    </div>
 				</div>
 			</div>
 			
@@ -51,7 +72,7 @@
 							<input type="text" name="descripcion" id="texto5"/>
 						</div>
 						<div>
-							<button class="btn" type="Button" id="boton1" name="agregar"><i class="icon-search"></i>Agregar
+							<button class="btn btn-primary" type="Button" id="btnCrearCliente" name="agregar"><i class="icon-qrcode"></i>Agregar
 							</button>
 						</div>
 					</form>

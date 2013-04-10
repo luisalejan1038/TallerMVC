@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MvcTaller.Models;
+using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Diagnostics;
 
 namespace MvcTaller.DataAccess
 {
@@ -24,14 +27,50 @@ namespace MvcTaller.DataAccess
             return listaCliente;
         }
 
-        public void AddClient(Client cliente)
+        public void AddClient(Client client)
         {
- 	        throw new NotImplementedException();
+            using (var db = new ClientContext())
+            {
+                var cliente = new Client
+                {
+                    name = "name8",
+                    id = "id134",
+                    email = "email19",
+                    tel = "tel11",
+                    descripcion = "descripcion19"
+                };
+
+                db.Clients.Add(cliente);
+                db.SaveChanges();
+
+                var query = from d in db.Clients
+                            select d;
+
+                foreach (Client item in query)
+                {
+                    Debug.WriteLine(item.name + " " + item.id + " " + item.email + " " + item.tel + " " + item.descripcion + " ");
+                }
+            }
+
         }
 
-        public void RemoveClient(int idCliente)
+        public void UpdateClient(Client upclient)
         {
- 	        throw new NotImplementedException();
+            using (var db = new ClientContext())
+            {
+                var cliente = db.Clients.Find(upclient.id);
+                cliente.name = upclient.name;
+                cliente.email = upclient.email;
+                cliente.tel = upclient.tel;
+                cliente.descripcion = upclient.descripcion;
+                db.SaveChanges();
+            }
+        }
+
+
+        public void RemoveClient(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,7 +10,8 @@ namespace MvcTaller.DataAccess
     interface IClientsProvider
     {
         List<Client> GetClients();
-        void AddClient(Client cliente);
-        void RemoveClient(int idCliente); 
+        void AddClient(Client client);
+        void UpdateClient(Client client);
+        void RemoveClient(string id);
     }
 }

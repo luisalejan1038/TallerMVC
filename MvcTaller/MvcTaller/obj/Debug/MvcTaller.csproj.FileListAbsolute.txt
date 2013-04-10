@@ -68,3 +68,5 @@ C:\Users\luis.silva\TallerMVC\MvcTaller\MvcTaller\bin\es\System.Web.Razor.resour
 C:\Users\luis.silva\TallerMVC\MvcTaller\MvcTaller\bin\es\System.Web.WebPages.resources.dll
 C:\Users\luis.silva\TallerMVC\MvcTaller\MvcTaller\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\luis.silva\TallerMVC\MvcTaller\MvcTaller\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\luis.silva\TallerMVC\MvcTaller\MvcTaller\bin\EntityFramework.dll
+C:\Users\luis.silva\TallerMVC\MvcTaller\MvcTaller\bin\EntityFramework.xml

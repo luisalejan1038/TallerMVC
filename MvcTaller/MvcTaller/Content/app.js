@@ -1,26 +1,34 @@
 ﻿/***Declaración de Arreglo***/
 var Clientes = new Array();
 
-/***Declaración de Nuevo Cliente***/
-var newClient = new Object();
+
+
+/*********EJECUCIÓN DEL PROGRAMA***********/
+$(document).ready(function () {
+    console.log("Cargando");
+    loadClients(function (miListaClientes) {
+        printClients(miListaClientes);
+        Clientes = miListaClientes;
+        console.log("Finalizado");
+        mostrarClientes(miListaClientes);
+        configurarBotonRemCliente(miListaClientes);
+        configurarEventos(miListaClientes);
+        configurarBotonCliente();
+        configurarBotonActCliente();
+    });
+});
+
+
 
 
 /*******FUNCIÓN loadClient****************/
 function loadClients(callback, listaClientes)  //Cargar Clientes desde documento JSON
 {
-    /*$.ajax({
-        url: "/MvcTaller/GetClients",
-        context: document.body
-    }).done(function (data) {
-        console.log(data);
-        listaClientes = JSON.parse(data);  //Convierte una cadena de la notación de objetos JavaScript (JSON) en un objeto.	
-        callback(listaClientes);
-    });*/
-
     $.getJSON("/MvcTaller/GetClients", function (listaClientes) {
         callback(listaClientes);               
     });
 }
+
 
 /*******FUNCIÓN addClient****************/
 function addClient(clientToLoad, miListaClientes) {
@@ -79,21 +87,74 @@ function mostrarClientes(listaClientes) {
 }
 
 
+
+/*******FUNCIÓN mostrarDetalles****************/
 function mostrarDetalles(idCliente, listaClientes) {
     var detalles = $(".paneldetalles");
     for (i = 0; i < listaClientes.length; i++) {
-        var id = $(".id");
-        var name = $(".name");
-        var email = $(".email");
-        var tel = $(".tel");
-        var descripcion = $(".descripcion");
+        var id = $("#texto6");
+        var name = $("#texto7");
+        var email = $("#texto8");
+        var tel = $("#texto9");
+        var descripcion = $("#texto10");
         if (listaClientes[i].id == idCliente) {
-            id.text(listaClientes[i].id);
-            name.text(listaClientes[i].name);
-            email.text(listaClientes[i].email);
-            tel.text(listaClientes[i].tel);
-            descripcion.text(listaClientes[i].descripcion);
+            id.val(listaClientes[i].id);
+            name.val(listaClientes[i].name);
+            email.val(listaClientes[i].email);
+            tel.val(listaClientes[i].tel);
+            descripcion.val(listaClientes[i].descripcion);
         }
+    }
+}
+
+/************* Función configurarBotonActCliente**************/
+function configurarBotonActCliente() {
+    var URL = "/MvcTaller/UpdateClient"; //Controlador-Acción
+    $("#btnActualizarCliente").click(function () {
+        var updateClient = new Object();
+        updateClient.id = document.getElementById("texto6").value;
+        updateClient.name = document.getElementById("texto7").value;
+        updateClient.email = document.getElementById("texto8").value;
+        updateClient.tel = document.getElementById("texto9").value;
+        updateClient.descripcion = document.getElementById("texto10").value;
+        try {
+            updateCliente(updateClient, Clientes);
+            $.post(URL, updateClient, function (data) {
+                console.log("Datos Cargando");
+            }).fail(function () {
+                alert("error");
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    });
+};
+
+
+/*******FUNCIÓN updateCliente****************/
+function updateCliente(clientToUpdate, miListaClientes) {
+    var number = /\d{9}/;
+    var email = /[0-z]\@[0-z]/;
+    var email1 = /\Wcom/;
+    var name = " ";
+    var okNumber = number.exec(clientToUpdate.tel);
+    var okEmail = email.exec(clientToUpdate.email);
+    var okEmail1 = email1.test(clientToUpdate.email);
+    if (okEmail && okEmail1 && okNumber && (name != clientToUpdate.name)) {
+        for(i = 0; i < miListaClientes.length; i++){
+            if (miListaClientes[i].id == clientToUpdate.id) {
+                miListaClientes[i].name = clientToUpdate.name;
+                miListaClientes[i].tel = clientToUpdate.tel;
+                miListaClientes[i].email = clientToUpdate.email;
+                miListaClientes[i].descripcion = clientToUpdate.descripcion;
+                mostrarClientes(miListaClientes);
+                configurarEventos(miListaClientes)
+            }
+        }                
+    }
+    else {
+        throw new Error("Campos inválidos");
     }
 }
 
@@ -106,14 +167,24 @@ function configurarEventos(listaClientes) {
 };
 
 
-/*******FUNCIÓN crearCliente****************/
-function crearCliente() {
-    $("#Boton").click(function () {
+/*******FUNCIÓN configurarBotonCliente****************/
+function configurarBotonCliente() {
+    var URL = "/MvcTaller/AddClient"; //Controlador-Acción
+    $("#btnCrearCliente").click(function () {
+        var newClient = new Object();
+        newClient.id = document.getElementById("texto1").value;
         newClient.name = document.getElementById("texto2").value;
         newClient.email = document.getElementById("texto3").value;
         newClient.tel = document.getElementById("texto4").value;
+        newClient.descripcion = document.getElementById("texto5").value;
         try {
             addClient(newClient, Clientes);
+            $.post(URL, newClient, function (data) {
+                console.log("Datos Cargando");
+            }).fail(function () {
+                alert("error");
+            });
+
         }
         catch (e) {
             alert(e);
@@ -122,15 +193,38 @@ function crearCliente() {
 };
 
 
-$(document).ready(function () {
-    console.log("Cargando");
-    loadClients(function (miListaClientes) {
-        printClients(miListaClientes);
-        Clientes = miListaClientes;
-        console.log("Finalizado");
-        mostrarClientes(miListaClientes);
-        configurarEventos(miListaClientes);
-        crearCliente();
+/*******FUNCIÓN configurarBotonRemCliente***********/
+function configurarBotonRemCliente(listaClientes) {
+    $("#icon-remove").click(function () {
+        var removeClient = new Object();
+        removeClient.id = document.getElementById("texto6").value;
+        $(this).closest(".itemcliente").remove();
+        $(this).closest(".itemcliente").slideUp();
+        removeClient(listaClientes, removeClient);
     });
-});
+};
+
+
+/*****************FUNCIÓN removeClient*****************/
+function removeClient(listaClientes, removeCliente) {
+    for (i = 0; i < listaClientes.lengt; i++) {
+        if (listaClientes[i].id == removeClient.id) {
+            listaClientes[i].splice(removeClient.id)
+        }
+    }
+    try {
+        removeClient(listaClientes);
+        $.post(URL, listaClientes, function (data) {
+            console.log("Datos Cargando");
+        }).fail(function () {
+            alert("error");
+        });
+
+    }
+    catch (e) {
+        alert(e);
+    }
+}
+
+
 

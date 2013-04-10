@@ -10,8 +10,8 @@ namespace MvcTaller.Controllers
 {
     public class MvcTallerController : Controller
     {
-        
-        IClientsProvider provider = new FakeClientsProvider();
+
+        IClientsProvider provider = new SQLClientsProvider();
 
         public ActionResult Clients()
         {
@@ -24,14 +24,42 @@ namespace MvcTaller.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet); 
         }
 
-        public ActionResult AddClients()
+        public ActionResult AddClient(string id, string name, string email, string tel, string descripcion)  
         {
+            Client Client = new Client();
+            Client.id = id;
+            Client.name = name;
+            Client.email = email;
+            Client.tel = tel;
+            Client.descripcion = descripcion; 
+            
+            provider.AddClient(Client);
+            
             return new EmptyResult();
         }
 
-        public ActionResult RemoveClient()
+
+        public ActionResult UpdateClient(string id, string name, string email, string tel, string descripcion)
         {
-            return View();
+            Client Client = new Client();
+            Client.id = id;
+            Client.name = name;            
+            Client.email = email;
+            Client.tel = tel;
+            Client.descripcion = descripcion;
+
+            provider.UpdateClient(Client);
+
+            return new EmptyResult();
+        }
+
+
+        public ActionResult RemoveClient(string id)
+        {
+            provider.RemoveClient(id);
+
+            return new EmptyResult();
+            
         }
 
     }

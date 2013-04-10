@@ -39,9 +39,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -107,10 +111,12 @@
     <Compile Include="Controllers\MvcTallerController.cs" />
     <Compile Include="DataAccess\FakeClientsProvider.cs" />
     <Compile Include="DataAccess\IClientsProvider.cs" />
+    <Compile Include="DataAccess\SQLClientsProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +124,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\app.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\estilos.css" />
     <Content Include="Content\jquery-1.9.1.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
